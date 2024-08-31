@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/NewsGyaan_App/static/css/main.dc4d6ff2.css",
+    "main.js": "/NewsGyaan_App/static/js/main.2a5cb9a0.js",
+    "static/js/453.85461fe7.chunk.js": "/NewsGyaan_App/static/js/453.85461fe7.chunk.js",
+    "static/media/loading.gif": "/NewsGyaan_App/static/media/loading.1458e8d59a4935f71824.gif",
+    "index.html": "/NewsGyaan_App/index.html",
+    "main.dc4d6ff2.css.map": "/NewsGyaan_App/static/css/main.dc4d6ff2.css.map",
+    "main.2a5cb9a0.js.map": "/NewsGyaan_App/static/js/main.2a5cb9a0.js.map",
+    "453.85461fe7.chunk.js.map": "/NewsGyaan_App/static/js/453.85461fe7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dc4d6ff2.css",
+    "static/js/main.2a5cb9a0.js"
+  ]
+}
