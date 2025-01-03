@@ -96,7 +96,7 @@ const fetchMoreData = async () => {
     return (
       <>
 
-       <h1 className='text-center fixed'style={{fontSize:"2.3rem",margin:"40px",paddingTop:"20px"}}>
+       <h1 className='text-center fixed'style={{fontSize:"2.3rem",margin:"30px",paddingTop:"20px"}}>
         News Gyaan-{capitalizeFirstLetter(props.category)} Top Headlines</h1>
         {bufferring&&<Spinnermode/>}
 

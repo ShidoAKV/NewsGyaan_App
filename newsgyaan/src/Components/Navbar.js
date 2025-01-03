@@ -2,12 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Findresult from './Findresult';
 import { Appcontext } from '../Context/Appcontext';
-
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 const Navbar = () => {
   const [result, setresult] = useState([]);
   const [input, setinput] = useState('');
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const { token, setToken } = useContext(Appcontext);
+  const { setToken ,backendurl} = useContext(Appcontext);
+
   const fetchdata = async () => {
     let response = await fetch(
       'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=4aeb55b3b1b54b3f95416061e611648b'
@@ -45,16 +48,29 @@ const Navbar = () => {
     setNavbarOpen(!navbarOpen);
   };
 
-  const handleremove = () => {
-    localStorage.removeItem('token');
-    setToken('');
+  const handleremove =async() => {
+     try {
+      const {data}=await axios.post(backendurl+'/api/user/logout',{withCredentials: true,});
+
+      if(data.success){
+        Cookies.remove('token',{ secure: true, sameSite: 'lax' });
+        setToken('');
+        toast.success(data.message);
+      }else{
+        toast.error(data.message);
+      }
+    
+     } catch (error) {
+      toast.error(error.message);
+     }
+    
   }
 
 
   return (
     <>
       <nav className='navbar position-sticky navbar-expand-lg navbar-dark bg-dark'>
-        <div className="container-fluid">
+        <div className="container-fluid ">
           <Link className="navbar-brand" to="/newsgyaan">
             NewsGyaan
           </Link>
@@ -153,7 +169,7 @@ const Navbar = () => {
             </ul>
           </div>
           <form
-            className="form-inline my-2 my-lg-0 fixed-top-right"
+            className="form-inline my-2 my-lg-0 fixed-top-right position-sticky"
             style={{ maxWidth: '200px' }}
           >
             <input
@@ -181,6 +197,7 @@ const Navbar = () => {
           display: 'flex',
           justifyContent: 'end',
           maxHeight: '30px',
+        
         }}
       >
         <Findresult resultvalue={result} />

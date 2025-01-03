@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import validator from 'validator';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const registerUser=async(req,res)=>{
@@ -41,8 +42,17 @@ const registerUser=async(req,res)=>{
 
          // token generation
         const token=jwt.sign({id:user._id},process.env.JWT_SECRET);
-       
-        return res.status(200).json({ success: true,token });
+
+      const expirationTime = new Date();
+      expirationTime.setHours(expirationTime.getHours() + 500);
+
+        const options={
+            httpOnly:true,
+            secure:true,
+            sameSite: 'lax',
+            expires:expirationTime
+        }
+        return res.cookie('token',token,options).json({ success: true,token });
   
     } catch (error) {
       return res.json({success:false,message:error.message});
@@ -62,9 +72,21 @@ const loginUser=async(req,res)=>{
        // password Compare;
        const isMatched=await bcrypt.compare(password,userData.password);
 
-       if(isMatched){
-        const token= jwt.sign({id:userData._id,},process.env.JWT_SECRET);
-        return res.json({success:true,token});
+     if(isMatched){
+      const token= jwt.sign({id:userData._id,},process.env.JWT_SECRET);
+
+      const expirationTime = new Date();
+      expirationTime.setHours(expirationTime.getHours() + 500);
+
+        return res
+        .cookie('token', token,{
+            httpOnly:true,
+            secure:true,
+            sameSite: 'lax',
+            expires:expirationTime
+        })
+        .json({ success: true, token });
+
        }else{
         return res.json({success:false,message:"Invalid Credentials"});
        }
@@ -72,9 +94,29 @@ const loginUser=async(req,res)=>{
         return res.json({success:false,message:error.message});
     }
 }
+ 
+const logout=async(req,res)=>{
+    try { 
+    //    console.log(req);
+       
+       res.clearCookie('token',{httpOnly:true,secure:true,sameSite: 'lax',});
+       res.json({ success: true, message: 'Logged out successfully' });
+        
+    } catch (error) {
+          return res.json({success:false,message:error.message});
+    } 
+}
+
+// const test=async(req,res)=>{
+//     try {
+//          return res.cookie('token','Abhishek',{httpOnly:true,secure:true}).json({success:true,message:'successfully'});
+//     } catch (error) {
+//          return res.json({success:false,message:'unsuccessfully'});
+//     }
+// }
 
 
 
 
 
-export {registerUser,loginUser};
+export {registerUser,loginUser,logout};

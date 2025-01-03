@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Appcontext } from '../Context/Appcontext.js';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 const AuthPage = () => {
   const [email, setEmail] = useState('');
@@ -21,12 +22,13 @@ const AuthPage = () => {
         console.log(backendurl);
         
         // Sign UP
-        const { data } = await axios.post(`${backendurl}${endpoint}`, payload);
+        const { data } = await axios.post(`${backendurl}${endpoint}`, payload,{ withCredentials: true,});
         // console.log(data);
         if (data.success) {
+          console.log(data);
           toast.success(`SignUp Successfully`);
+          Cookies.set('token', data.token,{ secure: true, sameSite: 'lax' });
           setToken(data.token);
-          localStorage.setItem('token', data.token);
           
         } else {
           toast.error(data.message);
@@ -37,13 +39,16 @@ const AuthPage = () => {
         // Login
         console.log(email,password);
         
-        const { data } = await axios.post(`${backendurl}${endpoint}`, payload);
-         
+        const { data } = await axios.post(`${backendurl}${endpoint}`, payload,{ withCredentials: true, });
+          
          
         if (data.success) {
+          console.log(data);
+          
           toast.success(`Login Successfully`);
+          Cookies.set('token', data.token,{ secure: true, sameSite: 'lax' });
           setToken(data.token);
-          localStorage.setItem('token', data.token);
+          
           
         } else {
           toast.error(data.message);

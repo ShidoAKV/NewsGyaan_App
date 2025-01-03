@@ -9,10 +9,8 @@ import Login from './Components/Login.js';
 import { ToastContainer} from 'react-toastify';
 
 const App=()=>{
-   const {token}=useContext(Appcontext);
-
+  const {token,setToken}=useContext(Appcontext);
   const [progress,setprogress]=useState(0);
-  
   
     return (
      <>
@@ -29,7 +27,7 @@ const App=()=>{
       />
 
       <Routes>
-          <Route  exact path="/" element={<News setprogress={setprogress}  key="newsgyaan"  country="in" category="general" />}></Route> 
+          <Route  exact path="/NewsGyaan_App" element={<News setprogress={setprogress}  key="newsgyaan"  country="in" category="general" />}></Route> 
           <Route  exact path="/newsgyaan" element={<News setprogress={setprogress}  key="newsgyaan"  country="in" category="general" />}></Route> 
           <Route  exact path="/home" element={<News setprogress={setprogress}   key="home"  country="in" category="business"/>}></Route>
           <Route  exact path="/general" element={<News setprogress={setprogress} key="general"  country="in" category="general"/>}></Route>
@@ -44,7 +42,8 @@ const App=()=>{
       </Router>
 
       </div>
-     :<Login/>}
+     :<Login/>
+     }
     </>
     )
 

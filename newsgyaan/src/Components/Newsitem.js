@@ -3,7 +3,6 @@ const Newsitem=({tittle,description,imageurl,newsurl,author,date,sourceval})=> {
 
     return (
       <div className='my-3 ' >
-        
      <div className="card " style={{width:"19rem"}}>
           <img style={{height:"14rem"}} src={imageurl?imageurl:"https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"} className="card-img-top" alt="no imagefound"/>
           <div className="spanbox " style={{width:'100%',height:'20px'}}>
