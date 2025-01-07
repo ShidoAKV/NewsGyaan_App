@@ -5,7 +5,7 @@ export const Appcontext=createContext();
 
 const AppcontextProvider=(props)=>{
      const [token, setToken] = useState('');
-     const backendurl=process.env.REACT_APP_BACKEND_URL;
+     const backendurl="https://newsgyaan-app-backend.onrender.com";
      console.log(backendurl);
      
      const value={
