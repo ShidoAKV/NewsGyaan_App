@@ -7,17 +7,13 @@ import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app=express();
-const PORT_NO=process.env.PORT||3500;
+const PORT_NO=(process.env.PORT||3500);
 
 // Middleware
 app.use(cookieParser());
 app.use(express.json());
 
-app.use(cors({
-    origin:process.env.FRONTENT_URL, 
-    credentials: true,
-}
-));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/user',useRouter);
