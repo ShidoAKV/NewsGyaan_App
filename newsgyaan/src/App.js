@@ -27,6 +27,7 @@ const App=()=>{
       />
 
       <Routes>
+         <Route    exact path="/" element={<News setprogress={setprogress}  key="newsgyaan"  country="in" category="general" />}></Route> 
           <Route  exact path="/NewsGyaan_App" element={<News setprogress={setprogress}  key="newsgyaan"  country="in" category="general" />}></Route> 
           <Route  exact path="/newsgyaan" element={<News setprogress={setprogress}  key="newsgyaan"  country="in" category="general" />}></Route> 
           <Route  exact path="/home" element={<News setprogress={setprogress}   key="home"  country="in" category="business"/>}></Route>

@@ -13,7 +13,7 @@ const Navbar = () => {
 
   const fetchdata = async () => {
     let response = await fetch(
-      'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=4aeb55b3b1b54b3f95416061e611648b'
+      'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=0b9dc789ee6d4e438dbbc74c81683736'
     );
     let data = await response.json();
     if (data && data.articles && input) {
